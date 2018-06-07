@@ -28,7 +28,7 @@
     <div class="header">
         <h2>Blog Name</h2>
     </div>
-
+    <!--NAVBAR-->
     <nav class="navbar navbar-inverse">
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
@@ -47,6 +47,7 @@
             </ul>
         </div>
     </nav>
+
     <div class=".container">
         <div class="row">
 
@@ -56,18 +57,40 @@
                 <h1 id="getTile"></h1>
                 <p id="getSynopsis"></p>
 
-
                 <p id="demo"></p>
 
+                <table id="kingKong">
+                    <tr>
+                        <th>Blog</th>
+                        <th>Synopsis</th>
+                        <th>Comments</th>
+                    </tr>
+                </table>
+                <script>
+                    $.ajax({
+                        url: 'BlogDataBase.json',
+                        dataType: 'json',
+                        type: 'get',
+                        cache: false,
+                        success: function(data){
+                            //console.log(data)
+                            $(data.Blogs).each(function(index, value){
+                                console.log(data)
+                                var record = "<tr>" +
+                                    "<td>"+value.Title+"</td>" +
+                                    "<td>"+value.Synopsis+"</td>" +
+                                    "<td>"+value.Comments+"</td>" +
+                                    "</tr>";
+                                $("#kingKong").append(record);
+                            });//*/
+                        }
+                    });
+                </script>
+
             </div>
+            <table></table>
+
         </div>
-        <?php
-                $data = file_get_contents("BlogDataBase.JSON");
-                $data = json_decode($data);
-                echo '<pre>';
-                print_r($data);
-                echo '</pre>';
-        ?>
     </div>
 
 </body>

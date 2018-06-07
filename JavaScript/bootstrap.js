@@ -1,5 +1,3 @@
-// Code goes here
-
 $(function() {
     var $previewContainer = $('#comment-md-preview-container');
     $previewContainer.hide();

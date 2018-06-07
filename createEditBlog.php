@@ -1,3 +1,54 @@
+<?php
+    $message = '';
+    $error = '';
+    $errBlogContent = '';
+    $errBlogTitle = '';
+    $result = '';
+    if(isset($_POST["submit"])){
+        console.log("Submit worked");
+        $blogTitle = $_POST['title'];
+        $blogContent = $_POST['content'];
+        //Check if inputs are empty
+        if (empty($_POST["title"])){
+            $errBlogTitle = 'Bitte einen Titel eingeben';
+        }
+        else if (empty($_POST["content"])){
+            $errBlogContent = 'Bitte Inhalt eingeben';
+        }
+        else{
+            if(file_exists('DataBaseJSON/BlogDataBase.JSON')){
+                $currentData = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
+                $thisData = json_decode($currentData, true);
+                $newData = array(
+                    'BlogID' => 5,
+                    'Title' => $_POST['title'],
+                    'Date' => date(d.m.Y),
+                    'Synopsis' => null,
+                    'Content' => $_POST['content'],
+                    'Comment' => 0
+                );
+                $arrayData[] = $newData;
+                $finalData = json_encode($arrayData);
+                if (file_put_contents('DataBaseJSON/BlogDataBase.JSON', $finalData)){
+                    $result = '<div class="alert alert-danger">Should have saved and I am awesome.</div>';
+                }
+            }
+            else{
+                $result = '<div class="alert alert-danger">JSON File does not exists.</div>';
+            }
+        }
+    }
+
+    function shortenContent($content){
+        if (strlen($content) > 100)
+        {
+            $offset = (100 - 3) - strlen($content);
+            $content = substr($content, 0, strrpos($content, ' ', $offset)) . '...';
+            return $content;
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -51,19 +102,25 @@
 		<div class="row">
 
 			<div class="col-md-2"></div>
-			<div class="col-md-8" style="background: #4CAF50">
+			<div class="col-md-8" style="border-style: dashed">
 				<h1></h1>
-				<form action="post">
-					<input name="title" type="text" placeholder="Blog Title"/>
-					<textarea id="comment-md" name="comment" placeholder="Blog Content"></textarea>
+
+				<form method="post">
+					<input name="title" id="title" type="text" id="title" placeholder="Blog Title"/>
+					<?php echo "<p class='errText'>$errBlogTitle</p>";?>
+
+					<textarea id="comment-md" name="content" placeholder="Blog Content"></textarea>
 					<br />
 					<div id="comment-md-preview-container">
 						<div class="well well-sm well-light md-preview margin-top-10" id="comment-md-preview"></div>
-					</div>
-					<input type="submit" value="Submit">
+                        <?php echo "<p class='errText'>$errBlogContent</p>";?>
+                    </div>
+
+                    <input type="submit" name="submit" value="Submit">
 					<button type="button" value="Cancel">Cancel</button>
 				</form>
-			</div>
+                <?php echo $result; ?>
+            </div>
 			<div class="col-md-2"></div>
 		</div>
 	</div>
