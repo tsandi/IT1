@@ -1,11 +1,11 @@
 <?php
 //PHP Kann auch ausgelagert werden, sollte man vielleicht auch machen.
     $message = '';
-    $errorName = '';
+    $errorTitle = '';
     $errorContent = '';
     if (isset($_POST['submit'])){
         if (empty($_POST["title"])){
-            $errorName = "<label class='text-danger'>Enter Title</label>";
+            $errorTitle = "<label class='text-danger'>Enter Title</label>";
         }
         if (empty($_POST["content"])){
             $errorContent = "<label class='text-danger'>Enter Content</label>";
@@ -98,24 +98,33 @@
 		<div class="row">
 
 			<div class="col-md-2"></div>
-			<div class="col-md-8" style="border-style: dashed">
+			<div class="col-md-8 well well-sm">
 				<h1></h1>
 
 				<form method="post">
 					<input name="title" id="title" type="text" id="title" placeholder="Blog Title"/>
-					<?php echo "<p class='errText'>$errBlogTitle</p>";?>
+                    <?php
+                    if (isset($errorTitle))
+                        echo $errorTitle;
+                    ?>
 
 					<textarea id="comment-md" name="content" placeholder="Blog Content"></textarea>
 					<br />
 					<div id="comment-md-preview-container">
 						<div class="well well-sm well-light md-preview margin-top-10" id="comment-md-preview"></div>
-                        <?php echo "<p class='errText'>$errBlogContent</p>";?>
+                        <?php
+                            if (isset($errBlogContent))
+                                echo $errBlogContent;
+                        ?>
                     </div>
 
-                    <input type="submit" name="submit" value="Submit">
-                    <button type="button" value="Cancel">Cancel</button>
+                    <input type="submit" name="submit" value="Submit" class="btn btn-success">
+                    <button type="button" value="Cancel" class="btn btn-info">Cancel</button>
+                    <?php
+                    if (isset($message))
+                        echo $message;
+                    ?>
 				</form>
-                <?php echo $result; ?>
             </div>
 			<div class="col-md-2"></div>
 		</div>
