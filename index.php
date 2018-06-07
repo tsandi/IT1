@@ -33,14 +33,14 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="navbar-brand" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="navbar-brand" href="index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">-Post a new blog-</a>
+                        <a class="dropdown-item" href="createEditBlog.php">-Post a new blog-</a>
                         <a class="dropdown-item" href="#">-Upload a new picture-</a>
                     </div>
                 </li>
@@ -57,32 +57,33 @@
                 <h1 id="getTile"></h1>
                 <p id="getSynopsis"></p>
 
-                <p id="demo"></p>
-
-                <table id="kingKong">
+                <table id="blogTable" class="table">
                     <tr>
-                        <th>Blog</th>
+                        <th>Blog Title</th>
                         <th>Synopsis</th>
                         <th>Comments</th>
+                        <th>Date</th>
                     </tr>
                 </table>
                 <script>
+                    <!--Script kann ausgelagert werden-->
                     $.ajax({
-                        url: 'BlogDataBase.json',
+                        url: 'DataBaseJSON/BlogDataBase.json',
                         dataType: 'json',
                         type: 'get',
                         cache: false,
                         success: function(data){
                             //console.log(data)
-                            $(data.Blogs).each(function(index, value){
+                            $(data).each(function(index, value){
                                 console.log(data)
                                 var record = "<tr>" +
                                     "<td>"+value.Title+"</td>" +
                                     "<td>"+value.Synopsis+"</td>" +
                                     "<td>"+value.Comments+"</td>" +
+                                    "<td>"+value.Date+"</td>" +
                                     "</tr>";
-                                $("#kingKong").append(record);
-                            });//*/
+                                $("#blogTable").append(record);
+                            });
                         }
                     });
                 </script>

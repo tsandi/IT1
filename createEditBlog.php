@@ -1,51 +1,47 @@
 <?php
+//PHP Kann auch ausgelagert werden, sollte man vielleicht auch machen.
     $message = '';
-    $error = '';
-    $errBlogContent = '';
-    $errBlogTitle = '';
-    $result = '';
-    if(isset($_POST["submit"])){
-        console.log("Submit worked");
-        $blogTitle = $_POST['title'];
-        $blogContent = $_POST['content'];
-        //Check if inputs are empty
+    $errorName = '';
+    $errorContent = '';
+    if (isset($_POST['submit'])){
         if (empty($_POST["title"])){
-            $errBlogTitle = 'Bitte einen Titel eingeben';
+            $errorName = "<label class='text-danger'>Enter Title</label>";
         }
-        else if (empty($_POST["content"])){
-            $errBlogContent = 'Bitte Inhalt eingeben';
+        if (empty($_POST["content"])){
+            $errorContent = "<label class='text-danger'>Enter Content</label>";
         }
-        else{
-            if(file_exists('DataBaseJSON/BlogDataBase.JSON')){
-                $currentData = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
-                $thisData = json_decode($currentData, true);
+        if ($_POST["title"] && $_POST["content"]){
+            if (file_exists('DataBaseJSON/BlogDataBase.JSON')){
+                $currentData = file_get_contents('BlogDataBase.JSON');
+                $arrayData = json_decode($currentData, true);
+                $synopsis = $_POST['content'];
                 $newData = array(
                     'BlogID' => 5,
                     'Title' => $_POST['title'],
-                    'Date' => date(d.m.Y),
-                    'Synopsis' => null,
+                    'Date' => date("j.n.Y"),
+                    'Synopsis' => shortenContent($synopsis),
                     'Content' => $_POST['content'],
-                    'Comment' => 0
+                    'Comments' => 0
                 );
                 $arrayData[] = $newData;
-                $finalData = json_encode($arrayData);
+                $finalData[] = json_encode($arrayData);
                 if (file_put_contents('DataBaseJSON/BlogDataBase.JSON', $finalData)){
-                    $result = '<div class="alert alert-danger">Should have saved and I am awesome.</div>';
-                }
+                    $message = "<label class='text-danger'>File Appended Successfully</label>";
+                }//*/
+            }else{
+                $message = 'JSON file does not exist';
             }
-            else{
-                $result = '<div class="alert alert-danger">JSON File does not exists.</div>';
-            }
+        }else{
+            $message = 'Cannot append if empty';
         }
     }
-
-    function shortenContent($content){
+   function shortenContent($content){
         if (strlen($content) > 100)
         {
             $offset = (100 - 3) - strlen($content);
             $content = substr($content, 0, strrpos($content, ' ', $offset)) . '...';
-            return $content;
         }
+        return $content;
     }
 ?>
 
@@ -83,14 +79,14 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item active">
-					<a class="navbar-brand" href="#">Home <span class="sr-only">(current)</span></a>
+                                    <a class="navbar-brand" href="index.php">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Admin
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="#">-Post a new blog-</a>
+                                            <a class="dropdown-item" href="createEditBlog.php">-Post a new blog-</a>
 						<a class="dropdown-item" href="#">-Upload a new picture-</a>
 					</div>
 				</li>
@@ -117,7 +113,7 @@
                     </div>
 
                     <input type="submit" name="submit" value="Submit">
-					<button type="button" value="Cancel">Cancel</button>
+                    <button type="button" value="Cancel">Cancel</button>
 				</form>
                 <?php echo $result; ?>
             </div>

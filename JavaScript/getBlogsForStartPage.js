@@ -12,11 +12,11 @@ $(document).ready(function(){
         url: "DataBaseJSON/BlogDataBase.JSON",
         dataTyp: "JSON",
         success:function(data){
-            $(data.Blogs)each(function(index, value){
+            $(data.Blogs).each(function(index, value){
                 var record = "<h2>"+value.Title+"</h2>"+
                     "<p>"+value.Synopsis+"</p>"
-                +"<br/>"
+                +"<br/>";
             });
         }
-    })
+    });
 });
