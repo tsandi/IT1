@@ -47,6 +47,7 @@
 
     if(isset($_POST['post'])){
 
+
         $write = fopen("com.txt", "a+");
         $date = date("Y-m-d");
         fwrite($write, "Name:<b><u>$name</u>  Datum:<b><u>$date</u></b><br>E-Mail:<b><u>$email</u></b><br>Kommentar: <br> $mes<br>");
