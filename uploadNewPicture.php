@@ -1,8 +1,13 @@
-
+<script>
+function deleteImage(&datei)
+{
+    var file_path = <?php echo dirname(__FILE__) . '/uploads/'?>+file_name;
+        file_path.remove();
+}
+</script>
 
 <?php
-// Bilder aus einem Verzeichnis auslesen
-// und sortiert in einer Tabelle anzeigen
+// Bilder ausgabe
 $bilderliste = array();
 $verzeichnis = 'uploads/';
 $handle = openDir($verzeichnis);
@@ -31,12 +36,14 @@ foreach ($bilderliste as $zaehler => $element) {
     echo  "<th ><img src=\"" . $bilderliste[$zaehler][1] . "\" width=\"20%" . $bilderliste[$zaehler][2] . "\" height=\"20%" . $bilderliste[$zaehler][3] . "\" alt=\"\"></th>";
     $datei = str_replace($verzeichnis, "", $bilderliste[$zaehler][1]);
     echo "<td>" . $datei . "</td>";
-    echo "<td>" . date("d.m.Y H:i", $bilderliste[$zaehler][0]) . "</td>";
-    //echo "<td>" . $bilderliste[$zaehler][2] . " x ". $bilderliste[$zaehler][3] . "</td>";
-    echo "<td> <a href='/uploadNewPicture.php?del=$datei' onClick='JavaScript: return confirm(\"Wirklich l&ouml;schen?\");'>l&ouml;schen?</a></td>";  // Löschen mit Bestätigung
+    //echo "<td>" . date("d.m.Y H:i", $bilderliste[$zaehler][0]) . "</td>";
+    echo "<td> <a href='uploadNewPicture.php' onClick='return confirm(\"Wirklich l&ouml;schen?\")'>l&ouml;schen?</a></td>";  // Löschen mit Bestätigung
     echo "</tr>";
+    
 }
 echo "</table>";
+    
+    
     
     echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 ?>
@@ -86,6 +93,6 @@ echo "</table>";
     
     move_uploaded_file($_FILES['datei']['tmp_name'], $new_path);
     echo 'Bild erfolgreich hochgeladen'; //<a href="'.$new_path.'">'.$new_path.'</a>';
-    header("Refresh:5");
+    header("Refresh:3");
     
     ?>
