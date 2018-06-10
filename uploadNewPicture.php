@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+<----Goback() Funktion geht die history zurück und findet die letzte Page---->
 <button onclick="goBack()">Zurück</button>
 
 <script>
