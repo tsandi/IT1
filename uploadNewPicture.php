@@ -1,4 +1,4 @@
-<form method="get" action="/index.php">
+<form method="get" action="/--index.php">
 <button type="submit">Zurück</button>
 </form>
 

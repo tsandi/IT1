@@ -6,7 +6,6 @@ xmlhttp.onreadystatechange = function() {
     }
 };
 
-<!--Script kann ausgelagert werden-->
 function loadValues(){
     $.ajax({
         url: 'DataBaseJSON/BlogDataBase.json',
@@ -18,20 +17,19 @@ function loadValues(){
             $(data).each(function(index, value){
                 //console.log(data)
                 var record = "<tr>" +
-                    "<td>"+value.BlogID+"</td>" +
                     "<td>"+value.Title+"</td>" +
                     "<td>"+value.Synopsis+"</td>" +
                     "<td>"+value.Comments+"</td>" +
                     "<td>"+value.Date+"</td>" +
                     //"<td><button type=\"button\" class=\"btn btn-primary\" id="+value.BlogID+" onclick=\"editBlog(this.id)\">Bearbeiten</button></td>" +
-                    "<td><button type=\"button\" class=\"button btn btn-primary\" id="+value.BlogID+" onclick=\"editBlog(this.id)\">Bearbeiten</button></></td>" +
-                    "<td><button type=\"button\" class=\"button btn btn-warning\" id="+value.BlogID+" onclick=\"deleteBlog(this.id)\">Löschen</button></td>" +
+                    //"<td><button type=\"button\" class=\"btn btn-primary\" id="+value.BlogID+" onclick=\"deleBlog(this.id)\">Bearbeiten</button></td>" +
+
+                    "<td><button type=\"button\" id=\"btnEdit\" class=\"button btn btn-primary\" id="+value.BlogID+" >Bearbeiten</button></></td>" +
+                    "<form method='post'><td><input type='hidden' id='toBeDeleted' name='toBeDeleted' value='"+value.BlogID+"'><button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" id="+value.BlogID+" >Löschen</button></td></form>" +
                     "</tr>";
                 $("#blogTable").append(record);
-
             });
         }
-
     });
 }
 

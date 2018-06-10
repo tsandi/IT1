@@ -4,7 +4,7 @@
     if ( $_GET['page']){
         $blogId = $_GET['page'];
         //echo $blogId;
-        $blog = file_get_contents('BlogDataBase.JSON');
+        $blog = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
         $allBlogs = json_decode($blog, true);
         foreach($allBlogs as $value){
             $newID = $value['BlogID'];

@@ -10,13 +10,14 @@
         if (empty($_POST["content"])){
             $errorContent = "<label class='text-danger'>Enter Content</label>";
         }
+
         if ($_POST["title"] && $_POST["content"]){
-            if (file_exists('DataBaseJSON/BlogDataBase.JSON')){
-                $currentData = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
+            if (file_exists('BlogDataBase.JSON')){
+                $currentData = file_get_contents('BlogDataBase.JSON');
                 $arrayData = json_decode($currentData, true);
                 $synopsis = $_POST['content'];
                 $newData = array(
-                    'BlogID' => 5,
+                    'BlogID' => checkIfIDIsTaken(),
                     'Title' => $_POST['title'],
                     'Date' => date("j.n.Y"),
                     'Synopsis' => shortenContent($synopsis),
@@ -25,9 +26,9 @@
                 );
                 $arrayData[] = $newData;
                 $finalData[] = json_encode($arrayData);
-                if (file_put_contents('DataBaseJSON/BlogDataBase.JSON', $finalData)){
+                if (file_put_contents('BlogDataBase.JSON', $finalData)){
                     $message = "<label class='text-danger'>File Appended Successfully</label>";
-                }//*/
+                }
             }else{
                 $message = 'JSON file does not exist';
             }
@@ -42,6 +43,30 @@
             $content = substr($content, 0, strrpos($content, ' ', $offset)) . '...';
         }
         return $content;
+    }
+
+    function checkIfIDIsTaken(){
+        $blog = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
+        $allBlogs = json_decode($blog, true);
+        foreach($allBlogs as $value){
+            $id = 0;
+            if ($id <= (int)$value['BlogID']){
+                $id = (int)$value['BlogID'];
+            }
+        }
+        return ($id+1);
+    }
+
+?>
+<?php
+    if(isset($_POST['btnDelete'] )){
+        echo $_POST['toBeDeleted'];
+        $toBeDeleted = $_POST['toBeDeleted'];
+        $blog = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
+        $allBlogs = json_decode($blog, true);
+        $search = array_search($toBeDeleted, $allBlogs);
+        if($search !== false) unset($fobj[$search]);
+        echo $filters = json_encode($fobj );
     }
 
 ?>
@@ -59,7 +84,7 @@
 
 	<script data-require="marked@*" data-semver="0.3.1" src="http://cdnjs.cloudflare.com/ajax/libs/marked/0.3.1/marked.js"></script>
 	<script src="https://cdn.rawgit.com/toopay/bootstrap-markdown/master/js/bootstrap-markdown.js"></script>
-	<script src="https://rawgit.com/lodev09/jquery-filedrop/master/jquery.filedrop.js"></script>
+	<!--<script src="https://rawgit.com/lodev09/jquery-filedrop/master/jquery.filedrop.js"></script>-->
 	<script src="https://rawgit.com/jeresig/jquery.hotkeys/master/jquery.hotkeys.js"></script>
     <script src="JavaScript/getBlogsForStartPage.js"></script>
 
@@ -81,7 +106,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item active">
-                                    <a class="navbar-brand" href="startPage.html">Home <span class="sr-only">(current)</span></a>
+                                    <a class="navbar-brand" href="startPage.php">Home <span class="sr-only">(current)</span></a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -122,7 +147,6 @@
                         </div>
 
                         <input type="submit" name="submit" value="Submit" class="btn btn-success">
-                        <button type="button" value="Cancel" class="btn btn-info">Cancel</button>
                         <?php
                         if (isset($message))
                             echo $message;
@@ -132,11 +156,10 @@
                 <div style="padding-top: 50px">
                     <table id="blogTable" class="table">
                         <tr>
-                            <th>Blog ID</th>
-                            <th>Blog Title</th>
-                            <th>Synopsis</th>
-                            <th>Comments</th>
-                            <th>Date</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
