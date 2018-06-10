@@ -67,26 +67,7 @@
                     </tr>
                 </table>
                 <script>
-                    <!--Script kann ausgelagert werden-->
-                    $.ajax({
-                        url: 'DataBaseJSON/BlogDataBase.json',
-                        dataType: 'json',
-                        type: 'get',
-                        cache: false,
-                        success: function(data){
-                            //console.log(data)
-                            $(data).each(function(index, value){
-                                console.log(data)
-                                var record = "<tr>" +
-                                    "<td>"+value.Title+"</td>" +
-                                    "<td>"+value.Synopsis+"</td>" +
-                                    "<td>"+value.Comments+"</td>" +
-                                    "<td>"+value.Date+"</td>" +
-                                    "</tr>";
-                                $("#blogTable").append(record);
-                            });
-                        }
-                    });
+                    loadValues();
                 </script>
 
             </div>
