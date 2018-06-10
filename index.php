@@ -22,6 +22,7 @@
     <script type='text/javascript' src="JavaScript/bootstrap.js"></script>
     <script type='text/javascript' src="JavaScript/getBlogsForStartPage.js"></script>
 
+
 </head>
 
 <body>
