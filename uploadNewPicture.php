@@ -1,3 +1,7 @@
+<form method="get" action="/index.php">
+<button type="submit">Zurück</button>
+</form>
+
 <script>
 function deleteImage(&datei)
 {
