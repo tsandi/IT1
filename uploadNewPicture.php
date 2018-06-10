@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html>
-<body>
-<!----Goback() Funktion geht die history zurück und findet die letzte Page---->
-<button onclick="goBack()">Zurück</button>
+<form method="get" action="/index.php">
+<button type="submit">Zurück</button>
+</form>
+
 
 <script>
     function goBack() {
