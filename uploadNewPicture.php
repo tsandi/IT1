@@ -1,12 +1,46 @@
+
+
 <?php
-    $verzeichnis = 'uploads/';
-    foreach (array_slice(scanDir($verzeichnis), 2) as $datei) {
-        if (in_array(substr($datei, -3, 3), array('gif','png','jpg'))) {
-            echo ' <img src="'.$verzeichnis. $datei . '" $datei" style="height:150px;width:150px;" />';
-            
+// Bilder aus einem Verzeichnis auslesen
+// und sortiert in einer Tabelle anzeigen
+$bilderliste = array();
+$verzeichnis = 'uploads/';
+$handle = openDir($verzeichnis);
+while ($datei = readDir($handle)) {
+    $verzeichnis_datei = $verzeichnis . $datei;
+    if ($datei != "." && $datei != ".." && !is_dir($datei)) {
+        if (strstr($datei, ".gif") || strstr($datei, ".png") || strstr($datei, ".jpeg") ||strstr($datei, ".JPG") ||strstr($datei, ".jpg")) {
+            $info = getimagesize($verzeichnis_datei);
+            array_push($bilderliste, array(filemtime($verzeichnis_datei) , $verzeichnis_datei , $info[0] , $info[1]));
         }
     }
+}
+closeDir($handle);
+
+rsort($bilderliste);
+
+echo <<<EOT
+<table border="1">
+<tr>
+<th>Bild</th> <th>Name</th> <th>Datum</th>
+</tr>
+EOT;
+
+foreach ($bilderliste as $zaehler => $element) {
+    echo "<tr>";
+    echo  "<th ><img src=\"" . $bilderliste[$zaehler][1] . "\" width=\"20%" . $bilderliste[$zaehler][2] . "\" height=\"20%" . $bilderliste[$zaehler][3] . "\" alt=\"\"></th>";
+    $datei = str_replace($verzeichnis, "", $bilderliste[$zaehler][1]);
+    echo "<td>" . $datei . "</td>";
+    echo "<td>" . date("d.m.Y H:i", $bilderliste[$zaehler][0]) . "</td>";
+    //echo "<td>" . $bilderliste[$zaehler][2] . " x ". $bilderliste[$zaehler][3] . "</td>";
+    echo "<td> <a href='/uploadNewPicture.php?del=$datei' onClick='JavaScript: return confirm(\"Wirklich l&ouml;schen?\");'>l&ouml;schen?</a></td>";  // Löschen mit Bestätigung
+    echo "</tr>";
+}
+echo "</table>";
+    
+    echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 ?>
+
 
 <form action="uploadNewPicture.php" method="post" enctype="multipart/form-data">
 <input type="file" name="datei"><br>
@@ -23,7 +57,6 @@
             die("Nur der Upload von Bilddateien ist gestattet");
         }
     }
-
     
     $upload_folder = 'uploads/'; //Das Upload-Verzeichnis
     $filename = pathinfo($_FILES['datei']['name'], PATHINFO_FILENAME);
@@ -40,7 +73,7 @@
         die("Bitte keine Dateien größer 2MB hochladen");
     }
     
-   //Pfad zum Upload
+    //Pfad zum Upload
     $new_path = $upload_folder.$filename.'.'.$extension;
     
     if(file_exists($new_path)) { //Falls Datei existiert, hänge eine Zahl an den Dateinamen
@@ -54,5 +87,5 @@
     move_uploaded_file($_FILES['datei']['tmp_name'], $new_path);
     echo 'Bild erfolgreich hochgeladen'; //<a href="'.$new_path.'">'.$new_path.'</a>';
     header("Refresh:5");
-  
+    
     ?>
