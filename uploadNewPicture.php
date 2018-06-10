@@ -4,8 +4,6 @@
 
 <button onclick="goBack()">Zurück</button>
 
-<p>Notice that clicking on the Back button here will not result in any action, because there is no previous URL in the history list.</p>
-
 <script>
     function goBack() {
         window.history.back();
