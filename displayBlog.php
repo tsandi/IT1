@@ -70,6 +70,11 @@
     ?>
 </div>
 
-<form method="get" action="/index.php">
-    <button type="submit">Zurück</button>
-</form>
+
+<button onclick="goBack()">Go Back</button>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
