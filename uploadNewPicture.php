@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html>
-<body>
-<!----Goback() Funktion geht die history zurück und findet die letzte Page---->
-<button onclick="goBack()">Zurück</button>
+<form method="get" action="/index.php">
+<button type="submit">Zurück</button>
+</form>
+
 
 <script>
     function goBack() {
@@ -107,7 +106,7 @@ echo "</table>";
     }
     
     move_uploaded_file($_FILES['datei']['tmp_name'], $new_path);
-    echo 'Bild erfolgreich hochgeladen'; //<a href="'.$new_path.'">'.$new_path.'</a>';
-    header("Refresh:3");
+    echo '...Bild wird hochgeladen'; //<a href="'.$new_path.'">'.$new_path.'</a>';
+    header("Refresh:2");
     
     ?>
