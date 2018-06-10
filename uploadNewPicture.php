@@ -1,7 +1,18 @@
+<?php
+    $verzeichnis = 'uploads/';
+    foreach (array_slice(scanDir($verzeichnis), 2) as $datei) {
+        if (in_array(substr($datei, -3, 3), array('gif','png','jpg'))) {
+            echo ' <img src="'.$verzeichnis. $datei . '" $datei" style="height:150px;width:150px;" />';
+            
+        }
+    }
+?>
+
 <form action="uploadNewPicture.php" method="post" enctype="multipart/form-data">
 <input type="file" name="datei"><br>
-<input type="submit" value="Hochladen">
+<input type="submit" value="Upload">
 </form>
+<meta http-equiv="refresh" >
 
 <?php
     //Überprüfung dass das Bild keine Fehler enthält
@@ -40,8 +51,8 @@
         } while(file_exists($new_path));
     }
     
-    
     move_uploaded_file($_FILES['datei']['tmp_name'], $new_path);
-    //echo 'Bild erfolgreich hochgeladen: <a href="'.$new_path.'">'.$new_path.'</a>';
-
+    echo 'Bild erfolgreich hochgeladen'; //<a href="'.$new_path.'">'.$new_path.'</a>';
+    header("Refresh:5");
+  
     ?>
