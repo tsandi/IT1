@@ -65,11 +65,21 @@ background: #f1f1f1;
     padding: 20px;
 
 }
+h1
+{
+    font-size: 30px;
+    text-align: center;
+}
+h3
+{
+    font-size: 45px;
+    text-align: center;
+}
 th
 {
     padding: 30px;
-    font-size: 40px;
-    text-align: center;
+    font-size: 30px;
+    text-align: left;
 }
 
 /* Add a card effect for articles */
