@@ -38,7 +38,7 @@ include("_header.php");
                 echo "</h5>";
                 echo "<p>";
                 echo $value['Synopsis'];
-                echo "<a href=\"displayBlog.php/?page=";
+                echo "<a href=\"displayBlog.php?page=";
                 echo $value['BlogID'];
                 echo "\">mehr</a>";
                 echo "</p>";

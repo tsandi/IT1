@@ -24,7 +24,7 @@ function loadValues(){
                     //"<td><button type=\"button\" class=\"btn btn-primary\" id="+value.BlogID+" onclick=\"editBlog(this.id)\">Bearbeiten</button></td>" +
                     //"<td><button type=\"button\" class=\"btn btn-primary\" id="+value.BlogID+" onclick=\"deleBlog(this.id)\">Bearbeiten</button></td>" +
 
-                    "<td><a href='createEditBlog.php/?page="+value.BlogID+"'><button type=\"button\" id=\"btnEdit\" class=\"button btn btn-primary\" id="+value.BlogID+" >Bearbeiten</button></></a></td>" +
+                    "<td><a href='editBlog.php?page="+value.BlogID+"'><button type=\"button\" id=\"btnEdit\" class=\"button btn btn-primary\" id="+value.BlogID+" >Bearbeiten</button></></a></td>" +
                     "<td><form method='post'><input type='hidden' id='toBeDeleted' name='toBeDeleted' value='"+value.BlogID+"'><button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" id="+value.BlogID+" >Löschen</button></form></td>" +
                     "</tr>";
                 $("#blogTable").append(record);
