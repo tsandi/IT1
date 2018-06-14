@@ -1,6 +1,7 @@
 <?php
 //PHP Kann auch ausgelagert werden, sollte man vielleicht auch machen.
-    error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);    $setTitel ='';
+    error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+    $setTitel ='';
     $setContent ='';
     $message = '';
     $errorTitle = '';
@@ -25,7 +26,7 @@
         }
 
         if ($_POST["title"] && $_POST["content"]){
-            if (file_exists('BlogDataBase.JSON')){
+            if (file_exists('DataBaseJSON/BlogDataBase.JSON')){
                 $currentData = file_get_contents('BlogDataBase.JSON');
                 $arrayData = json_decode($currentData, true);
                 $synopsis = $_POST['content'];
@@ -39,7 +40,7 @@
                 );
                 $arrayData[] = $newData;
                 $finalData[] = json_encode($arrayData);
-                if (file_put_contents('BlogDataBase.JSON', $finalData)){
+                if (file_put_contents('DataBaseJSON/BlogDataBase.JSON', $finalData)){
                     $message = "<label class='text-danger'>File Appended Successfully</label>";
                 }
             }else{
@@ -82,6 +83,23 @@
         if($search !== false) unset($fobj[$search]);
         echo $filters = json_encode($fobj);
     }
+?>
+
+<?php
+if ($_GET['page']){
+    $blogTitle = '';
+    $blogConetent ='';
+    $blogId = $_GET['page'];
+    $blog = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
+    $allBlogs = json_decode($blog, true);
+    foreach($allBlogs as $value){
+        $newID = $value['BlogID'];
+        if($value['BlogID'] == $blogId){
+            $blogTitle = $value['Title'];
+            $blogConetent = $value['Content'];
+        }
+    }
+}
 ?>
 
 
@@ -145,7 +163,7 @@
 				<div><h1></h1>
 
                     <form method="post">
-                        <input name="title" id="title" type="text" id="title" placeholder="Blog Title" value="<?php if (isset($setTitle)) echo htmlspecialchars($setTitle); ?>"/>
+                        <input name="title" id="title" type="text" id="title" placeholder="Blog Title" value="<?php if (isset($setTitle)) echo ($setTitle); ?>"/>
                         <?php
                         if (isset($errorTitle))
                             echo $errorTitle;
