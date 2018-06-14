@@ -1,8 +1,21 @@
 <?php
 //PHP Kann auch ausgelagert werden, sollte man vielleicht auch machen.
+    error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);    $setTitel ='';
+    $setContent ='';
     $message = '';
     $errorTitle = '';
     $errorContent = '';
+    if ($_GET['page']){
+        $blogId = $_GET['page'];
+        $blog = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
+        $allBlogs = json_decode($blog, true);
+        foreach($allBlogs as $value){
+            if($value['BlogID'] == $blogId){
+                $setTitle = $value['Title'];
+                $setContent = $value['Content'];
+            }
+        }
+    }
     if (isset($_POST['submit'])){
         if (empty($_POST["title"])){
             $errorTitle = "<label class='text-danger'>Enter Title</label>";
@@ -58,6 +71,7 @@
     }
 
 ?>
+
 <?php
     if(isset($_POST['btnDelete'] )){
         echo $_POST['toBeDeleted'];
@@ -66,10 +80,11 @@
         $allBlogs = json_decode($blog, true);
         $search = array_search($toBeDeleted, $allBlogs);
         if($search !== false) unset($fobj[$search]);
-        echo $filters = json_encode($fobj );
+        echo $filters = json_encode($fobj);
     }
-
 ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -130,7 +145,7 @@
 				<div><h1></h1>
 
                     <form method="post">
-                        <input name="title" id="title" type="text" id="title" placeholder="Blog Title"/>
+                        <input name="title" id="title" type="text" id="title" placeholder="Blog Title" value="<?php if (isset($setTitle)) echo htmlspecialchars($setTitle); ?>"/>
                         <?php
                         if (isset($errorTitle))
                             echo $errorTitle;

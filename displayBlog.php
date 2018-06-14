@@ -1,7 +1,10 @@
+<?php
+include("_header.php");
+?>
 
-<div id="blogDisply">
+<div id="blogDisplay">
     <?php
-    if ( $_GET['page']){
+    if ($_GET['page']){
         $blogId = $_GET['page'];
         //echo $blogId;
         $blog = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
@@ -23,3 +26,7 @@
     }
     ?>
 </div>
+
+<?php
+include("_sidebar.php");
+?>
