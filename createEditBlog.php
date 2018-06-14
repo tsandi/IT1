@@ -1,6 +1,5 @@
 <?php
-//PHP Kann auch ausgelagert werden, sollte man vielleicht auch machen.
-    error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+    //error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
     $setTitel ='';
     $setContent ='';
     $message = '';
@@ -27,7 +26,7 @@
 
         if ($_POST["title"] && $_POST["content"]){
             if (file_exists('DataBaseJSON/BlogDataBase.JSON')){
-                $currentData = file_get_contents('BlogDataBase.JSON');
+                $currentData = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
                 $arrayData = json_decode($currentData, true);
                 $synopsis = $_POST['content'];
                 $newData = array(
@@ -54,7 +53,7 @@
         if (strlen($content) > 100)
         {
             $offset = (100 - 3) - strlen($content);
-            $content = substr($content, 0, strrpos($content, ' ', $offset)) . '...';
+            $content = substr($content, 0, strrpos($content, ' ', $offset)). '...';
         }
         return $content;
     }
@@ -73,14 +72,27 @@
 ?>
 
 <?php
-    if(isset($_POST['btnDelete'] )){
-        echo $_POST['toBeDeleted'];
-        $toBeDeleted = $_POST['toBeDeleted'];
+    if($_GET['deleteBlog']){
+        //$ajax({});
+        $number = $_GET['deleteBlog'];
+        echo "I might be stupid $number";
+
         $blog = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
-        $allBlogs = json_decode($blog, true);
-        $search = array_search($toBeDeleted, $allBlogs);
-        if($search !== false) unset($fobj[$search]);
-        echo $filters = json_encode($fobj);
+        $allBlogs = json_decode($blog);
+        $result = [];
+
+        foreach($allBlogs as $key => $value) {
+            if($value->BlogID != $number) {
+                $result[] = $value;
+            }
+        }
+        echo "WHY?";
+        echo "<p>$result</p>";
+        $postResult = json_encode($result);
+        if (file_put_contents('DataBaseJSON/BlogDataBase.JSON', $postResult)){
+            //$message = "<label class='text-danger'>File Appended Successfully</label>";
+            echo "<p>$result</p>";
+        }
     }
 ?>
 

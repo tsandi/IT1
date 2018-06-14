@@ -26,11 +26,11 @@ function loadValues(){
 
                     "<td><a href='editBlog.php?page="+value.BlogID+"'><button type=\"button\" id=\"btnEdit\" class=\"button btn btn-primary\" id="+value.BlogID+" >Bearbeiten</button></></a></td>" +
                     "<td>" +
-                        "<form method='post'>" +
-                            "<input type='hidden' id='toBeDeleted' name='toBeDeleted' value='"+value.BlogID+"'>" +
-                            "<button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" id="+value.BlogID+">" +
-                            "Löschen</button>" +
-                        "</form>" +
+                        //"<button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" onclick=\"deleteBlog("+value.BlogID+")\" id="+value.BlogID+">" +
+                        "<button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" onclick='location.href=\"?deleteBlog="+value.BlogID+"\"' id="+value.BlogID+">" +
+                        //onclick="location.href=?deleteBlog=\"+value.BlogID+\""
+                            "Löschen" +
+                        "</button>" +
                     "</td>" +
                     "</tr>";
                 $("#blogTable").append(record);
@@ -39,12 +39,3 @@ function loadValues(){
     });
 }
 
-function deleteBlog(clicked){
-    var text;
-    (confirm("Press a button "+clicked))
-
-}
-
-function editBlog(clicked){
-
-}
