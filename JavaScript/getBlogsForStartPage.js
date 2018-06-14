@@ -25,7 +25,13 @@ function loadValues(){
                     //"<td><button type=\"button\" class=\"btn btn-primary\" id="+value.BlogID+" onclick=\"deleBlog(this.id)\">Bearbeiten</button></td>" +
 
                     "<td><a href='editBlog.php?page="+value.BlogID+"'><button type=\"button\" id=\"btnEdit\" class=\"button btn btn-primary\" id="+value.BlogID+" >Bearbeiten</button></></a></td>" +
-                    "<td><form method='post'><input type='hidden' id='toBeDeleted' name='toBeDeleted' value='"+value.BlogID+"'><button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" id="+value.BlogID+" >Löschen</button></form></td>" +
+                    "<td>" +
+                        "<form method='post'>" +
+                            "<input type='hidden' id='toBeDeleted' name='toBeDeleted' value='"+value.BlogID+"'>" +
+                            "<button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" id="+value.BlogID+">" +
+                            "Löschen</button>" +
+                        "</form>" +
+                    "</td>" +
                     "</tr>";
                 $("#blogTable").append(record);
             });
@@ -34,32 +40,9 @@ function loadValues(){
 }
 
 function deleteBlog(clicked){
-    $.ajax({
-        url: 'DataBaseJSON/BlogDataBase.json',
-        dataType: 'json',
-        type: 'get',
-        cache: false,
-        success: function(data){
-            var m, k;
-            console.log(data);
-            $.each(data, function(index, value){
-                if (this.BlogID == clicked){
-                    //var arrayID = clicked-1;
-                    data.splice(1, 1);
-                    //return false;
-                }
-                var notDeleted = "<tr>" +
-                    "<td>"+data.length+"</td>" +
-                    "<td>"+value.BlogID+"</td>" +
-                    "<td>"+value.Title+"</td>" +
-                    "</tr>";
-                $("#otherTable").append(notDeleted);
+    var text;
+    (confirm("Press a button "+clicked))
 
-            });//*/
-            console.log(data);
-
-        }
-    });
 }
 
 function editBlog(clicked){

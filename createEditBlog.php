@@ -70,7 +70,6 @@
         }
         return ($id+1);
     }
-
 ?>
 
 <?php
@@ -90,58 +89,47 @@
 <?php
 include ("_header.php");
 ?>
+    <div class="well well-large">
+        <form method="post">
+            <input name="title" id="title" type="text" id="title" placeholder="Blog Title" value="<?php if (isset($setTitle)) echo ($setTitle); ?>"/>
+            <?php
+            if (isset($errorTitle))
+                echo $errorTitle;
+            ?>
 
-<div class=".container">
-    <div class="row">
-
-        <div class="col-md-2"></div>
-        <div class="col-md-8 well well-sm">
-            <div><h1></h1>
-
-                <form method="post">
-                    <input name="title" id="title" type="text" id="title" placeholder="Blog Title" value="<?php if (isset($setTitle)) echo ($setTitle); ?>"/>
-                    <?php
-                    if (isset($errorTitle))
-                        echo $errorTitle;
-                    ?>
-
-                    <textarea id="comment-md" name="content" placeholder="Blog Content"></textarea>
-                    <br />
-                    <div id="comment-md-preview-container">
-                        <div class="well well-sm well-light md-preview margin-top-10" id="comment-md-preview"></div>
-                        <?php
-                            if (isset($errBlogContent))
-                                echo $errBlogContent;
-                        ?>
-                    </div>
-
-                    <input type="submit" name="submit" value="Submit" class="btn btn-success">
-                    <?php
-                    if (isset($message))
-                        echo $message;
-                    ?>
-                </form>
+            <textarea id="comment-md" name="content" placeholder="Blog Content"></textarea>
+            <br />
+            <div id="comment-md-preview-container">
+                <div class="well well-sm well-light md-preview margin-top-10" id="comment-md-preview"></div>
+                <?php
+                    if (isset($errBlogContent))
+                        echo $errBlogContent;
+                ?>
             </div>
-            <div style="padding-top: 50px">
-                <table id="blogTable" class="table">
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </table>
-                <script>
-                    loadValues();
-                </script>
-                <table id="otherTable" class="table"></table>
-            </div>
-        </div>
-        <div class="col-md-2"></div>
+
+            <input type="submit" name="submit" value="Submit" class="btn btn-success">
+            <?php
+            if (isset($message))
+                echo $message;
+            ?>
+        </form><br/>
     </div>
-</div>
+    <div class="well well-large">
+        <table id="blogTable" class="table">
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </table>
+        <script>
+            loadValues();
+        </script>
+        <table id="otherTable" class="table"></table>
+    </div>
 
 <?php
 include ("_footer.php");
