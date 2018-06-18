@@ -1,15 +1,9 @@
-</html>
-
-<script>
-function deleteImage(&datei)
-{
-    var file_path = <?php echo dirname(__FILE__) . '/uploads/'?>+file_name;
-        file_path.remove();
-}
-</script>
+<form>
+<input type="button" value="ZURÜCK" onclick="window.location.href='startPage.html'" />
+</form>
 
 <?php
-// Bilder ausgabe
+    // Bilder ausgabe
 $bilderliste = array();
 $verzeichnis = 'uploads/';
 $handle = openDir($verzeichnis);
@@ -29,7 +23,7 @@ rsort($bilderliste);
 echo <<<EOT
 <table border="1">
 <tr>
-<th>Bild</th> <th>Name</th> <th>Datum</th>
+<th>Bild</th>
 </tr>
 EOT;
 
@@ -37,33 +31,17 @@ foreach ($bilderliste as $zaehler => $element) {
     echo "<tr>";
     echo  "<th ><img src=\"" . $bilderliste[$zaehler][1] . "\" width=\"20%" . $bilderliste[$zaehler][2] . "\" height=\"20%" . $bilderliste[$zaehler][3] . "\" alt=\"\"></th>";
     $datei = str_replace($verzeichnis, "", $bilderliste[$zaehler][1]);
-    echo "<td>" . $datei . "</td>";
-    //echo "<td>" . date("d.m.Y H:i", $bilderliste[$zaehler][0]) . "</td>";
-    echo "<td> <a href='uploadNewPicture.php' onClick='return confirm(\"Wirklich l&ouml;schen?\")'>l&ouml;schen?</a></td>";  // Löschen mit Bestätigung
+    echo "<td> <a href='deletePicture.php?id=$datei' onClick='JavaScript: return confirm(\"Wirklich löschen?\");'>löschen?</a></td>";  // Löschen mit Bestätigung
     echo "</tr>";
-    
 }
 echo "</table>";
-    
-    
-    
-    echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
+echo "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 ?>
-
 
 <form action="uploadNewPicture.php" method="post" enctype="multipart/form-data">
 <input type="file" name="datei"><br>
 <input type="submit" value="Upload">
 </form>
-<button onclick="goBack()">Zurück</button>
-
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script>
-
-<meta http-equiv="refresh" >
 
 <?php
     //Überprüfung dass das Bild keine Fehler enthält
@@ -71,14 +49,13 @@ echo "</table>";
         $allowed_types = array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF);
         $detected_type = exif_imagetype($_FILES['datei']['tmp_name']);
         if(!in_array($detected_type, $allowed_types)) {
-            die("Nur der Upload von Bilddateien ist gestattet");
+            die("Nur der Upload von Bilddateien ist gestattet(png, jpg, jpeg, gif)");
         }
     }
     
     $upload_folder = 'uploads/'; //Das Upload-Verzeichnis
     $filename = pathinfo($_FILES['datei']['name'], PATHINFO_FILENAME);
     $extension = strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
-    
     $allowed_extensions = array('png', 'jpg', 'jpeg', 'gif');//Überprüfung der Dateiendung
     if(!in_array($extension, $allowed_extensions)) {
         die("Ungültige Dateiendung. Nur png, jpg, jpeg und gif-Dateien sind erlaubt");
@@ -91,18 +68,17 @@ echo "</table>";
     }
     
     //Pfad zum Upload
+    $filename = Bild;
     $new_path = $upload_folder.$filename.'.'.$extension;
     
-    if(file_exists($new_path)) { //Falls Datei existiert, hänge eine Zahl an den Dateinamen
+    if(file_exists($new_path)) { //hänge eine Zahl an den Dateinamen
         $id = 1;
         do {
             $new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
             $id++;
         } while(file_exists($new_path));
     }
-    
     move_uploaded_file($_FILES['datei']['tmp_name'], $new_path);
-    echo '...Bild wird hochgeladen'; //<a href="'.$new_path.'">'.$new_path.'</a>';
+    echo '...Bild wird hochgeladen';
     header("Refresh:2");
-    
     ?>
