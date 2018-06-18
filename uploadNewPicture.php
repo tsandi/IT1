@@ -23,7 +23,7 @@ rsort($bilderliste);
 echo <<<EOT
 <table border="1">
 <tr>
-<th>Bild</th>
+<th>Bild</th> <th>Name</th>
 </tr>
 EOT;
 
@@ -31,6 +31,7 @@ foreach ($bilderliste as $zaehler => $element) {
     echo "<tr>";
     echo  "<th ><img src=\"" . $bilderliste[$zaehler][1] . "\" width=\"20%" . $bilderliste[$zaehler][2] . "\" height=\"20%" . $bilderliste[$zaehler][3] . "\" alt=\"\"></th>";
     $datei = str_replace($verzeichnis, "", $bilderliste[$zaehler][1]);
+    echo "<td>" . $datei . "</td>";
     echo "<td> <a href='deletePicture.php?id=$datei' onClick='JavaScript: return confirm(\"Wirklich löschen?\");'>löschen?</a></td>";  // Löschen mit Bestätigung
     echo "</tr>";
 }
