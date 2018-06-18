@@ -1,3 +1,15 @@
+<form method="get" action="/--index.php">
+<button type="submit">Zurück</button>
+</form>
+
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+</body>
 </html>
 
 <script>
@@ -55,14 +67,6 @@ echo "</table>";
 <input type="file" name="datei"><br>
 <input type="submit" value="Upload">
 </form>
-<button onclick="goBack()">Zurück</button>
-
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script>
-
 <meta http-equiv="refresh" >
 
 <?php

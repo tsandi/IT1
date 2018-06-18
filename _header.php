@@ -7,7 +7,6 @@
     <script href="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -27,15 +26,16 @@
 
 </head>
 <body>
+
 <div class="header">
-    <h2>Blog Name</h2>
+    <h3>Blog Name</h3>
 </div>
-<!--NAVBAR-->
+
 <nav class="navbar navbar-inverse">
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="navbar-brand" href="index.php">Home <span class="sr-only">(current)</span></a>
+                <a class="navbar-brand" href="startPage.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="navbar-brand dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,60 +50,6 @@
     </div>
 </nav>
 
-<?php
-echo file_get_contents("_header.html");
-?>
-
-<div class=".container">
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8" style="background: #4CAF50">
-            <!--Place Content HERE-->
-            <h1 id="getTile"></h1>
-
-            <p id="getSynopsis"></p>
-
-            <table id="blogTable" class="table">
-
-            </table>
-
-        </div>
-        <table></table>
-
-    </div>
-
-</div>
-<div class="row">
+<div class="row container-fluid">
     <div class="col-md-1"></div>
-    <div class="leftcolumn col-md-8">
-        <script>
-            <!--Script kann ausgelagert werden-->
-            $.ajax({
-                url: 'DataBaseJSON/BlogDataBase.json',
-                dataType: 'json',
-                type: 'get',
-                cache: false,
-                success: function(data){
-                    //console.log(data)
-                    $(data).each(function(index, value){
-                        console.log(data);
-                        var record =
-                            "<div class=\"card\">"+
-                            "<h2>"+value.Title+"</h2>" +
-                            "<h5>"+value.Date+"</h5>" +
-                            "<p>"+value.Synopsis+"</p>" +
-                            "<a href=displayBlog.php/?page="+value.BlogID+">weiter lesen</a>" +
-
-                            "</tr>";
-                        $("#blogTable").append(record);
-                    });
-                }
-            });
-
-        </script>
-
-
-    </div>
-</body>
-</html>
-
+    <div class="col-md-7">
