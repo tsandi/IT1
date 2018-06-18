@@ -18,6 +18,7 @@ if(isset($_POST['post'])) {
 
     $read = fopen("$blogId.txt", "r+t");
     if ($read == true) {
+
         echo "All comments:";
         echo "<br> ";
         while (!feof($read)) {
