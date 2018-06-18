@@ -1,5 +1,5 @@
 <form>
-<input type="button" value="ZURÜCK" onclick="window.location.href='startPage.html'" />
+<input type="button" value="ZURÜCK" onclick="window.location.href='index.php'" />
 </form>
 
 <?php
