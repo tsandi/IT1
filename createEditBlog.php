@@ -1,5 +1,5 @@
 <?php
-    //error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+    error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
     $setTitel ='';
     $setContent ='';
     $message = '';
@@ -73,26 +73,21 @@
 
 <?php
     if($_GET['deleteBlog']){
-        //$ajax({});
-        $number = $_GET['deleteBlog'];
-        echo "I might be stupid $number";
 
+        $number = $_GET['deleteBlog'];
         $blog = file_get_contents('DataBaseJSON/BlogDataBase.JSON');
         $allBlogs = json_decode($blog);
         $result = [];
-
         foreach($allBlogs as $key => $value) {
             if($value->BlogID != $number) {
                 $result[] = $value;
             }
         }
-        echo "WHY?";
-        echo "<p>$result</p>";
         $postResult = json_encode($result);
         if (file_put_contents('DataBaseJSON/BlogDataBase.JSON', $postResult)){
             //$message = "<label class='text-danger'>File Appended Successfully</label>";
-            echo "<p>$result</p>";
         }
+        header("Refresh:0; url=createEditBlog.php");
     }
 ?>
 

@@ -26,8 +26,8 @@ function loadValues(){
 
                     "<td><a href='editBlog.php?page="+value.BlogID+"'><button type=\"button\" id=\"btnEdit\" class=\"button btn btn-primary\" id="+value.BlogID+" >Bearbeiten</button></></a></td>" +
                     "<td>" +
-                        //"<button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" onclick=\"deleteBlog("+value.BlogID+")\" id="+value.BlogID+">" +
-                        "<button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" onclick='location.href=\"?deleteBlog="+value.BlogID+"\"' id="+value.BlogID+">" +
+                        "<button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" onclick=\"deleteBlog("+value.BlogID+")\" id="+value.BlogID+">" +
+                        //"<button type=\"button\" id=\"btnDelete\" class=\"button btn btn-warning\" onclick='location.href=\"?deleteBlog="+value.BlogID+"\"' id="+value.BlogID+">" +
                         //onclick="location.href=?deleteBlog=\"+value.BlogID+\""
                             "Löschen" +
                         "</button>" +
@@ -37,5 +37,10 @@ function loadValues(){
             });
         }
     });
+}
+
+function deleteBlog(blogID){
+    if (confirm("Blog wirklich löschen?"))
+        location.href='?deleteBlog='+blogID;
 }
 
