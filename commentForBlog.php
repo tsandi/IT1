@@ -16,23 +16,31 @@ if(isset($_POST['post'])) {
     fwrite($write, "Name: <b><u>$name</u><b><u> Datum: $date</u></b><br><b><u>E-Mail: $email</u></b><br>Kommentar: $mes<br><br>");
     fclose($write);
 
-    $read = fopen("$blogId.txt", "r+t");
+
+        $read = fopen("$blogId.txt", "r+t");
 
         echo "All comments:";
         echo "<br> ";
+    if (file_exists("$blogId.txt") == true) {
         while (!feof($read)) {
+
             echo fread($read, 1024);
         }
+    }
         fclose($read);
     } else {
 
         $read = fopen("$blogId.txt", "r+t");
         echo "All comments:";
         echo "<br> ";
+    if (file_exists("$blogId.txt") == true) {
         while (!feof($read)) {
+
             echo fread($read, 1024);
 
         }
         fclose($read);
     }
+
+}
 ?>
