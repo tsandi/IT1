@@ -43,5 +43,11 @@ if ($_GET['page']){
 </div>
 
 <?php
+include ("commentForBlog.php");
+?>
+
+
+
+<?php
 include ("_footer.php");
 ?>

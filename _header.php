@@ -42,7 +42,7 @@
                     Admin
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="createEditBlog.php">-Post a new blog-</a>
+                    <a class="dropdown-item" href="createEditBlog.php">-Post/Edit a blog-</a>
                     <a class="dropdown-item" href="uploadNewPicture.php">-Upload a new picture-</a>
                 </div>
             </li>
